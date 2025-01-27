@@ -128,7 +128,7 @@ func UpdateTask(description string, id int) error {
 		return err
 	}
 
-	fmt.Printf("\nTask #%d updated successfully!\n\n", id)
+	fmt.Printf("\nTask [%d] updated successfully!\n\n", id)
 	return nil
 }
 
@@ -163,7 +163,7 @@ func MarkTask(id int, status string) error {
 		return err
 	}
 
-	fmt.Printf("\nTask #%d MARKED as %s.\n\n", id, status)
+	fmt.Printf("\nTask [%d] MARKED as %s.\n\n", id, status)
 	return nil
 }
 
@@ -192,6 +192,6 @@ func DeleteTask(id int) error {
 		return err
 	}
 
-	fmt.Printf("\nTask #%d deleted successfully!\n\n", id)
+	fmt.Printf("\nTask [%d] deleted successfully!\n\n", id)
 	return nil
 }
