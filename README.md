@@ -4,7 +4,7 @@
 
 This is a lightweight, terminal-based task management application built with **[Go](https://go.dev/#)**. It allows you to **add**, **update**, **delete**, and **list** tasks using simple commands. The tasks are written into and read from a **JSON** file for persistence.
 
-> #### This is a sample solution for the [task-tracker](https://roadmap.sh/projects/task-tracker) project from **[roadmap.sh](https://roadmap.sh/)**.
+> #### This is a sample solution for the [task-tracker](https://roadmap.sh/projects/task-tracker) project from **[roadmap.sh](https://roadmap.sh/)** projects.
 
 
 ## Features
