@@ -12,7 +12,7 @@ import (
 
 // Validating input task status
 func ValidStatus(status string) bool {
-	if status == StatusDone || status == StatusInProgress || status == StatusTodo {
+	if status == StatusDone || status == StatusInProgress || status == StatusTodo || status == "" {
 		return true
 	}
 	return false
@@ -23,7 +23,7 @@ func GenerateID(tasks []Task) int {
 	if len(tasks) == 0 {
 		return 1
 	}
-	return tasks[len(tasks)].Id + 1
+	return tasks[len(tasks)-1].Id + 1
 }
 
 // Fetching 'task' by 'Id'
@@ -36,13 +36,12 @@ func FetchById(tasks []Task, id int) (*Task, error) {
 	return nil, errors.New("Task not found")
 }
 
-
 /* CRUD Operations */
 
 // Adding a new 'task'
 func AddTask(description string) error {
 	if strings.TrimSpace(description) == "" {
-		return errors.New("Task description cannot be empty")
+		return fmt.Errorf("task description cannot be empty")
 	}
 
 	tasks, err := ReadTasks()
@@ -51,11 +50,11 @@ func AddTask(description string) error {
 	}
 
 	newTask := Task{
-		Id: GenerateID(tasks),
+		Id:          GenerateID(tasks),
 		Description: description,
-		Status: StatusTodo,
-		CreatedAt: time.Now(),
-		UpdatedAt: time.Now(),
+		Status:      StatusTodo,
+		CreatedAt:   time.Now(),
+		UpdatedAt:   time.Now(),
 	}
 
 	tasks = append(tasks, newTask)
@@ -63,8 +62,8 @@ func AddTask(description string) error {
 	if err != nil {
 		return err
 	}
-	
-	fmt.Printf("\nTask added successfully! ID : %d\n", newTask.Id)
+
+	fmt.Printf("\nTask added successfully! ID : %d\n\n", newTask.Id)
 	return nil
 }
 
@@ -84,20 +83,28 @@ func ListTasks(statusFilter string) error {
 		return fmt.Errorf("invalid status filter : %s", statusFilter)
 	}
 
+	counter := 0
+	fmt.Println()
+
 	for _, task := range tasks {
 		if statusFilter == "" || statusFilter == task.Status {
+			counter += 1
 			fmt.Printf("%d. %s [%s]\t(Created: %s)\n", task.Id, task.Description, task.Status, task.CreatedAt.Format(TimeFormat))
 		}
+	}
+
+	if counter == 0 {
+		fmt.Printf("No tasks marked as : %s\n\n", statusFilter)
+	} else if statusFilter != "" {
+		fmt.Printf("\n%d task(s) marked as : %s\n\n", counter, statusFilter)
+	} else {
+		fmt.Printf("\nYou have %d task(s).\n\n", counter)
 	}
 	return nil
 }
 
 // Update a 'task'
 func UpdateTask(description string, id int) error {
-	if description == "" {
-		return errors.New("Task description cannot be empty")
-	}
-
 	tasks, err := ReadTasks()
 	if err != nil {
 		return err
@@ -115,13 +122,13 @@ func UpdateTask(description string, id int) error {
 	if flag {
 		return fmt.Errorf("task with ID : %d not found", id)
 	}
-	
+
 	err = WriteTasks(tasks)
 	if err != nil {
 		return err
 	}
 
-	fmt.Printf("\nTask #%d updated successfully!\n", id)
+	fmt.Printf("\nTask #%d updated successfully!\n\n", id)
 	return nil
 }
 
@@ -156,7 +163,7 @@ func MarkTask(id int, status string) error {
 		return err
 	}
 
-	fmt.Printf("\nTask #%d MARKED as %s.\n", id, status)
+	fmt.Printf("\nTask #%d MARKED as %s.\n\n", id, status)
 	return nil
 }
 
@@ -185,6 +192,6 @@ func DeleteTask(id int) error {
 		return err
 	}
 
-	fmt.Printf("\nTask #%d deleted successfully!\n", id)
+	fmt.Printf("\nTask #%d deleted successfully!\n\n", id)
 	return nil
 }

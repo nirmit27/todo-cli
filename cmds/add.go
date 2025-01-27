@@ -12,9 +12,8 @@ func Add(args []string) {
 		return
 	}
 
-	desc := strings.Join(args, " ")
-	if err := tasks.AddTask(desc); err != nil {
+	description := strings.Join(args, " ")
+	if err := tasks.AddTask(description); err != nil {
 		fmt.Println("Error adding task :", err)
-		return
 	}
 }
