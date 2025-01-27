@@ -26,3 +26,5 @@ go.work.sum
 
 # Others
 .vscode
+test.go
+**/tasks.json
