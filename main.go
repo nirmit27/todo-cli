@@ -30,7 +30,7 @@ func main() {
 	case "mark":
 		cmds.Mark(args)
 	default:
-		fmt.Printf("Unknown command: %s\n\n", command)
+		fmt.Printf("Unknown command: %s\n", command)
 		cmds.PrintHelp()
 	}
 }

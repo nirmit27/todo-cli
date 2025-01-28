@@ -8,7 +8,7 @@ import (
 )
 
 func Update(args []string) {
-	if len(args) < 1 {
+	if len(args) < 2 {
 		fmt.Println("Usage : todo-cli update <int> <description>\n - Update task description by ID.")
 		return
 	}

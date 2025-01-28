@@ -8,7 +8,7 @@ import (
 )
 
 func Mark(args []string) {
-	if len(args) < 1 {
+	if len(args) < 2 {
 		fmt.Println("Usage : todo-cli mark <id> <status>\n - Mark task status (todo, in-progress, done)")
 		return
 	}
@@ -19,7 +19,7 @@ func Mark(args []string) {
 		return
 	}
 
-	status := strings.Join(args[1:], " ")
+	status := strings.TrimSpace(args[1])
 	if err := tasks.MarkTask(id, status); err != nil {
 		fmt.Println("Error marking task :", err)
 	}

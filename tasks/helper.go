@@ -2,7 +2,6 @@
 package tasks
 
 import (
-	"errors"
 	"fmt"
 	"strings"
 	"time"
@@ -33,7 +32,7 @@ func FetchById(tasks []Task, id int) (*Task, error) {
 			return &tasks[i], nil
 		}
 	}
-	return nil, errors.New("Task not found")
+	return nil, fmt.Errorf("task with ID : %d not found", id)
 }
 
 /* CRUD Operations */
@@ -110,18 +109,27 @@ func UpdateTask(description string, id int) error {
 		return err
 	}
 
-	flag := true
-	for i, task := range tasks {
-		if task.Id == id {
-			tasks[i].Description = description
-			tasks[i].UpdatedAt = time.Now()
-			flag = false
+	/*
+		flag := true
+		for i, task := range tasks {
+			if task.Id == id {
+				tasks[i].Description = description
+				tasks[i].UpdatedAt = time.Now()
+				flag = false
+			}
 		}
+		if flag {
+			return fmt.Errorf("task with ID : %d not found", id)
+			}
+	*/
+
+	temp, err := FetchById(tasks, id)
+	if err != nil {
+		return err
 	}
 
-	if flag {
-		return fmt.Errorf("task with ID : %d not found", id)
-	}
+	(*temp).Description = description
+	(*temp).UpdatedAt = time.Now()
 
 	err = WriteTasks(tasks)
 	if err != nil {
@@ -134,7 +142,7 @@ func UpdateTask(description string, id int) error {
 
 // Update 'task' status / MARK a 'task'
 func MarkTask(id int, status string) error {
-	if !ValidStatus(status) {
+	if !ValidStatus(status) || status == "" {
 		return fmt.Errorf("invalid status filter : %s", status)
 	}
 
@@ -143,20 +151,28 @@ func MarkTask(id int, status string) error {
 		return err
 	}
 
+	/*
 	flag := true
 	for i, task := range tasks {
 		if task.Id == id {
 			tasks[i].Status = status
 			tasks[i].UpdatedAt = time.Now()
-
 			flag = false
 			break
 		}
 	}
-
 	if flag {
 		return fmt.Errorf("task with ID : %d not found", id)
 	}
+	*/
+
+	temp, err := FetchById(tasks, id)
+	if err != nil {
+		return err
+	}
+
+	(*temp).Status = status
+	(*temp).UpdatedAt = time.Now()
 
 	err = WriteTasks(tasks)
 	if err != nil {
