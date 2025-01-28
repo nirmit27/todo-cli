@@ -78,19 +78,31 @@ Update the status of a task by its **ID**.
 ./todo-cli mark <id> <new-status>
 ```
 
-#### Output:
+### 5. View Task details
+Get the detailed view of a task by its **ID**.
+
 ```bash
-Task [n] MARKED as <new-status>.
+./todo-cli details <id>
 ```
 
-### 5. List All Tasks
+#### Output:
+```bash
+ --- Task [<id>] ---
+
+ Description : <description>
+ Status : <status>
+ Created at : <time-of-creation>
+ Updated at : <time-of-updation>
+```
+
+### 6. List All Tasks
 List **all** the tasks stored in the JSON file.
 
 ```bash
 ./todo-cli list
 ```
 
-### 6. List Tasks by Status
+### 7. List Tasks by Status
 List tasks filtered by their status (`todo`, `in-progress`, or `done`).
 
 ```bash
