@@ -32,7 +32,8 @@ func main() {
 	case "details":
 		cmds.Details(args)
 	default:
-		fmt.Printf("Unknown command: %s\n", command)
+		fmt.Printf(`Unknown command: "%s"
+		`, command)
 		cmds.PrintHelp()
 	}
 }

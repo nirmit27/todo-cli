@@ -12,6 +12,6 @@ func List(args []string) {
 	}
 
 	if err := tasks.ListTasks(status); err != nil {
-		fmt.Println("Error:", err)
+		fmt.Printf("\nError fetching task(s) : %s\n\n", err)
 	}
 }

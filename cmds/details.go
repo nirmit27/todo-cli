@@ -19,6 +19,6 @@ func Details(args []string) {
 	}
 
 	if err = tasks.FetchDetails(id); err != nil {
-		fmt.Printf("\nError : %s\n\n", err)
+		fmt.Printf("\nError fetching task : %s\n\n", err)
 	}
 }

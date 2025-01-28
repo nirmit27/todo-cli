@@ -21,6 +21,6 @@ func Mark(args []string) {
 
 	status := strings.TrimSpace(args[1])
 	if err := tasks.MarkTask(id, status); err != nil {
-		fmt.Printf("\nError : %s\n\n", err)
+		fmt.Printf("\nError fetching task : %s\n\n", err)
 	}
 }

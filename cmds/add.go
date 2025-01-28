@@ -19,6 +19,6 @@ func Add(args []string) {
 	}
 
 	if err := tasks.AddTask(description); err != nil {
-		fmt.Println("Error adding task :", err)
+		fmt.Printf("\nError adding task : %s\n\n", err)
 	}
 }

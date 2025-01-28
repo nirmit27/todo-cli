@@ -74,7 +74,16 @@ func FetchDetails(id int) error {
 	}
 	temp := (*t)
 
-	fmt.Printf("\n --- Task [%d] ---\n\n Description : %s\n Status : %s\n Created at : %s\n Updated at : %s\n\n", temp.Id, temp.Description, temp.Status, temp.CreatedAt.Format(TimeFormat), temp.UpdatedAt.Format(TimeFormat))
+	fmt.Printf(
+`
+ --- Task [%d] ---
+	 
+ Description : %s
+ Status : %s
+ Created at : %s
+ Updated at : %s
+	 
+`, temp.Id, temp.Description, temp.Status, temp.CreatedAt.Format(TimeFormat), temp.UpdatedAt.Format(TimeFormat))
 
 	return nil
 }
