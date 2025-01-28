@@ -3,7 +3,6 @@ package tasks
 
 import (
 	"fmt"
-	"strings"
 	"time"
 )
 
@@ -39,10 +38,6 @@ func FetchById(tasks []Task, id int) (*Task, error) {
 
 // Adding a new 'task'
 func AddTask(description string) error {
-	if strings.TrimSpace(description) == "" {
-		return fmt.Errorf("task description cannot be empty")
-	}
-
 	tasks, err := ReadTasks()
 	if err != nil {
 		return err
@@ -63,6 +58,24 @@ func AddTask(description string) error {
 	}
 
 	fmt.Printf("\nTask added successfully! ID : %d\n\n", newTask.Id)
+	return nil
+}
+
+// Fetch 'task' details
+func FetchDetails(id int) error {
+	tasks, err := ReadTasks()
+	if err != nil {
+		return err
+	}
+
+	t, err := FetchById(tasks, id)
+	if err != nil {
+		return err
+	}
+	temp := (*t)
+
+	fmt.Printf("\n --- Task [%d] ---\n\n Description : %s\n Status : %s\n Created at : %s\n Updated at : %s\n\n", temp.Id, temp.Description, temp.Status, temp.CreatedAt.Format(TimeFormat), temp.UpdatedAt.Format(TimeFormat))
+
 	return nil
 }
 
@@ -152,18 +165,18 @@ func MarkTask(id int, status string) error {
 	}
 
 	/*
-	flag := true
-	for i, task := range tasks {
-		if task.Id == id {
-			tasks[i].Status = status
-			tasks[i].UpdatedAt = time.Now()
-			flag = false
-			break
+		flag := true
+		for i, task := range tasks {
+			if task.Id == id {
+				tasks[i].Status = status
+				tasks[i].UpdatedAt = time.Now()
+				flag = false
+				break
+			}
 		}
-	}
-	if flag {
-		return fmt.Errorf("task with ID : %d not found", id)
-	}
+		if flag {
+			return fmt.Errorf("task with ID : %d not found", id)
+		}
 	*/
 
 	temp, err := FetchById(tasks, id)

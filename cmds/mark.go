@@ -15,12 +15,12 @@ func Mark(args []string) {
 
 	id, err := strconv.Atoi(args[0])
 	if err != nil {
-		fmt.Println("\nTask ID must be a positive number. Please try again.")
+		fmt.Print("\nTask ID must be a positive number. Please try again.\n\n")
 		return
 	}
 
 	status := strings.TrimSpace(args[1])
 	if err := tasks.MarkTask(id, status); err != nil {
-		fmt.Println("Error marking task :", err)
+		fmt.Printf("\nError : %s\n\n", err)
 	}
 }

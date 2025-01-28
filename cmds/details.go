@@ -6,9 +6,9 @@ import (
 	"todo-cli/tasks"
 )
 
-func Delete(args []string) {
+func Details(args []string) {
 	if len(args) < 1 {
-		fmt.Println("Usage : todo-cli delete <id>\n - Delete a task by ID.")
+		fmt.Println("Usage : todo-cli task <id>\n - View a task by ID")
 		return
 	}
 
@@ -18,7 +18,7 @@ func Delete(args []string) {
 		return
 	}
 
-	if err := tasks.DeleteTask(id); err != nil {
-		fmt.Printf("\nError deleting task : %s\n\n", err)
+	if err = tasks.FetchDetails(id); err != nil {
+		fmt.Printf("\nError : %s\n\n", err)
 	}
 }

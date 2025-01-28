@@ -29,6 +29,8 @@ func main() {
 		cmds.Delete(args)
 	case "mark":
 		cmds.Mark(args)
+	case "details":
+		cmds.Details(args)
 	default:
 		fmt.Printf("Unknown command: %s\n", command)
 		cmds.PrintHelp()

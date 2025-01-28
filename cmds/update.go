@@ -15,13 +15,17 @@ func Update(args []string) {
 
 	id, err := strconv.Atoi(args[0])
 	if err != nil {
-		fmt.Println("\nTask ID must be a positive number. Please try again.")
+		fmt.Print("\nTask ID must be a positive number. Please try again.\n\n")
 		return
 	}
 
 	description := strings.Join(args[1:], " ")
+	if strings.TrimSpace(description) == "" {
+		fmt.Print("\nNew description cannot be empty. Please try again.\n\n")
+		return
+	}
 
 	if err := tasks.UpdateTask(description, id); err != nil {
-		fmt.Println("\nError updating task :", err)
+		fmt.Printf("\nError updating task : %s\n\n", err)
 	}
 }
